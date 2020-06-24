@@ -1,17 +1,25 @@
 package com.school.management.controller;
 
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.MessageSource;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,7 +32,10 @@ public class ManageStudentController {
 	
 	@Autowired
 	private StudentService studentService;
-
+	
+	@Autowired
+	private MessageSource messageSource;
+	
 	//@RequestMapping(method = RequestMethod.GET , path = "/students")
 	/*
 	 * @GetMapping(path = "/students") public String getStudents() {
@@ -56,18 +67,24 @@ public class ManageStudentController {
 	 }
 
 	 @GetMapping(path = "/students/{studentId}") 
-	 public Student getStudentByID( @PathVariable Integer studentId) {
+	 public EntityModel<Student> getStudentByID( @PathVariable Integer studentId) {
 
 		 Student student = studentService.getStudent( studentId );
 		 if( student == null )
 			 throw new StudentNotFoundException("Student not found:"+studentId);
 		 
-		 return student;
+		 EntityModel<Student> resource = EntityModel.of(student);
+		 
+		 WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
+		 
+		 resource.add(linkTo.withRel("all-students"));
+		 
+		 return resource;
 
 	 }
 
 	 @PostMapping(path = "/students")
-	 public ResponseEntity<Student> createStudent( @RequestBody Student student ) {
+	 public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student ) {
 
 		 Student newStudent = studentService.saveStudent( student );
 		 
@@ -84,6 +101,14 @@ public class ManageStudentController {
 
 		 //return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(newStudent);
 		 
+	 }
+
+	 //This is an example of internationalization i18n
+	 @GetMapping(path = "/locale")
+	 public String getI18nExample(@RequestHeader(value = "Accept-Language", required = false) Locale locale) {
+
+		 return messageSource.getMessage("good.morning.message", null, locale);
+
 	 }
 
 

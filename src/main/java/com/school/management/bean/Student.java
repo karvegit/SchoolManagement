@@ -1,13 +1,19 @@
 package com.school.management.bean;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
+
 public class Student {
 
 	private Integer studentId;
+	@Size(min = 2, message = "Name should not be less than 2 characters")
 	private String name;
 	private String place;
 	private String course;
+	@Digits(integer = 4,message = "Year should be numeric in form of YYYY", fraction = 0)
+	@Size(min = 4, max = 4, message = "Year can only be of 4 digits in the form YYYY")
 	private String year;
-
+ 
 	public Student(Integer studentId, String name, String place, String course, String year) {
 		this.studentId = studentId;
 		this.name = name;
