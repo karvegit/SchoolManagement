@@ -3,11 +3,17 @@ package com.school.management.bean;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties( value = {"course","year"} )
 public class Student {
 
 	private Integer studentId;
 	@Size(min = 2, message = "Name should not be less than 2 characters")
 	private String name;
+	
+	@JsonIgnore
 	private String place;
 	private String course;
 	@Digits(integer = 4,message = "Year should be numeric in form of YYYY", fraction = 0)

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @SpringBootApplication
 public class Application {
@@ -21,10 +22,10 @@ public class Application {
 	@Bean
 	public LocaleResolver localeResolver() {
 		
-		AcceptHeaderLocaleResolver acceptHeaderLocaleResolver = new AcceptHeaderLocaleResolver();
-		acceptHeaderLocaleResolver.setDefaultLocale(Locale.US);
-		return acceptHeaderLocaleResolver;
-		
+		SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
+		sessionLocaleResolver.setDefaultLocale(Locale.US);
+		return sessionLocaleResolver;
+
 	}
 
 	@Bean

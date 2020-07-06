@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,13 +28,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.school.management.Exception.StudentNotFoundException;
 import com.school.management.bean.Student;
-import com.school.management.service.StudentService;
+import com.school.management.service.StudentServiceImpl;
 
 @RestController
 public class ManageStudentController {
 	
 	@Autowired
-	private StudentService studentService;
+	private StudentServiceImpl studentService;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -83,6 +86,23 @@ public class ManageStudentController {
 
 	 }
 
+	 @DeleteMapping(path = "/students/{studentId}") 
+	 public ResponseEntity<List<Student>> deleteStudentByID( @PathVariable Integer studentId) {
+
+		 List<Student> student = studentService.deleteStudentById( studentId );
+		 if( student == null )
+			 throw new StudentNotFoundException("Student not found:"+studentId);
+
+		 URI location = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUri();
+		 HttpHeaders headers = new HttpHeaders();
+
+		 headers.setLocation(location);
+		 headers.add("custom-header", "Test");
+
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(student);		 
+
+	 }
+
 	 @PostMapping(path = "/students")
 	 public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student ) {
 
@@ -100,7 +120,7 @@ public class ManageStudentController {
 		 //headers.add("custom-header", "Test");
 
 		 //return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(newStudent);
-		 
+
 	 }
 
 	 //This is an example of internationalization i18n
