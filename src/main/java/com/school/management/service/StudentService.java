@@ -8,7 +8,7 @@ import java.util.List;
 import com.school.management.bean.Student;
 
 /**
- * @author nitin
+ * @author
  *
  */
 public interface StudentService {
@@ -17,8 +17,14 @@ public interface StudentService {
 	
 	public Student saveStudent( Student student);
 	
-	public Student getStudent( Integer studentId );
+	public Student getStudentById( Integer studentId );
 
 	public List<Student> deleteStudentById( Integer studentId );
+	
+	public List<Student> getStudentByName( String studentName);
+
+	public List<Student> getStudentByIdGreaterThan( Integer studentId);
+	
+	public List<Student> getByStudentNameOrdered( String name );
 
 }

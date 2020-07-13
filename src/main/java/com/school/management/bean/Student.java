@@ -1,14 +1,22 @@
 package com.school.management.bean;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties( value = {"course","year"} )
+//@JsonIgnoreProperties( value = {"course","year"} )
+@Entity
 public class Student {
 
+	@Id
+	@GeneratedValue
 	private Integer studentId;
 	@Size(min = 2, message = "Name should not be less than 2 characters")
 	private String name;
@@ -20,6 +28,9 @@ public class Student {
 	@Size(min = 4, max = 4, message = "Year can only be of 4 digits in the form YYYY")
 	private String year;
  
+	@OneToMany(mappedBy = "student")
+	private List<Subject> subjects;
+	
 	public Student(Integer studentId, String name, String place, String course, String year) {
 		this.studentId = studentId;
 		this.name = name;
@@ -74,6 +85,22 @@ public class Student {
 	public String toString() {
 		return "Student [studentId=" + studentId + ", name=" + name + ", place=" + place + ", course=" + course
 				+ ", year=" + year + "]";
+	}
+
+
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public List<Subject> getSubjects() {
+		return subjects;
+	}
+
+
+	public void setSubjects(List<Subject> subjects) {
+		this.subjects = subjects;
 	}
 
 }

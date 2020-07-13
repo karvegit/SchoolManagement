@@ -16,11 +16,11 @@ public class StudentDAOmpl implements StudentDAO{
 	private static List<Student> studentsList = new ArrayList<>();
 
 	static {
-		studentsList.add(new Student(1, "Nitin Karve1", "Pune", "MCA", "I"));
-		studentsList.add(new Student(2, "Nitin Karve2", "Bpl", "BCA", "II"));
-		studentsList.add(new Student(3, "Nitin Karve3", "Nashik", "MBA", "III"));
-		studentsList.add(new Student(4, "Nitin Karve4", "Akola", "CA", "IV"));
-		studentsList.add(new Student(5, "Nitin Karve5", "Nagpur", "BBA", "II"));
+		studentsList.add(new Student(1, "Test 1", "Pune", "MCA", "I"));
+		studentsList.add(new Student(2, "Rest 2", "Bpl", "BCA", "II"));
+		studentsList.add(new Student(3, "Rest 2", "Nashik", "MBA", "III"));
+		studentsList.add(new Student(4, "Rest 2", "Akola", "CA", "IV"));
+		studentsList.add(new Student(5, "Rest 2", "Nagpur", "BBA", "II"));
 	}
 
 	public List<Student> getAllStudents(){

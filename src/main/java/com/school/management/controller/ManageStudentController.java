@@ -7,11 +7,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.school.management.Exception.StudentNotFoundException;
 import com.school.management.bean.Student;
+import com.school.management.bean.Subject;
 import com.school.management.service.StudentServiceImpl;
 
 @RestController
@@ -43,13 +46,13 @@ public class ManageStudentController {
 	/*
 	 * @GetMapping(path = "/students") public String getStudents() {
 	 * 
-	 * return "Nitin Karve";
+	 * return "Test";
 	 * 
 	 * }
 	 * 
 	 * @GetMapping(path = "/students1") public Student getStudents1() {
 	 * 
-	 * return new Student("Nitin Karve","Pune","MCA", "III");
+	 * return new Student("Test1","Pune","MCA", "III");
 	 * 
 	 * }
 	 * 
@@ -57,7 +60,7 @@ public class ManageStudentController {
 	 * @GetMapping(path = "/students/{id}") 
 	 * public String getStudentByID( @PathVariable String id) {
 	 * 
-	 * return "Nitin Karve: "+ id;
+	 * return "Test1: "+ id;
 	 * 
 	 * }
 	 */
@@ -72,7 +75,7 @@ public class ManageStudentController {
 	 @GetMapping(path = "/students/{studentId}") 
 	 public EntityModel<Student> getStudentByID( @PathVariable Integer studentId) {
 
-		 Student student = studentService.getStudent( studentId );
+		 Student student = studentService.getStudentById( studentId );
 		 if( student == null )
 			 throw new StudentNotFoundException("Student not found:"+studentId);
 		 
@@ -131,6 +134,66 @@ public class ManageStudentController {
 
 	 }
 
+	 @GetMapping(path = "/students/name/{studentName}") 
+	 public CollectionModel<Student> getStudentByName( @PathVariable String studentName) {
 
+		 List<Student> studentList = studentService.getStudentByName(studentName);
+		 if( studentList == null )
+			 throw new StudentNotFoundException("Student not found:"+studentName);
 
+		 CollectionModel<Student> resource = CollectionModel.of(studentList);
+		 
+		 WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
+		 
+		 resource.add(linkTo.withRel("all-students"));
+		 
+		 return resource;
+
+	 }
+	 
+	 @GetMapping(path = "/students/greater/{studentId}") 
+	 public CollectionModel<Student> getStudentByIdGreaterThan( @PathVariable Integer studentId) {
+
+		 List<Student> studentList = studentService.getStudentByIdGreaterThan(studentId);
+		 if( studentList == null )
+			 throw new StudentNotFoundException("Student not found:"+studentId );
+
+		 CollectionModel<Student> resource = CollectionModel.of(studentList);
+		 
+		 WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
+		 
+		 resource.add(linkTo.withRel("all-students"));
+		 
+		 return resource;
+
+	 }
+	 
+	 @GetMapping(path = "/students/ordered/{direction}") 
+	 public CollectionModel<Student> getByStudentNameOrdered( @PathVariable String direction) {
+
+		 List<Student> studentList = studentService.getByStudentNameOrdered(direction);
+		 if( studentList == null )
+			 throw new StudentNotFoundException("Student not found:"+direction );
+
+		 CollectionModel<Student> resource = CollectionModel.of(studentList);
+		 
+		 WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
+		 
+		 resource.add(linkTo.withRel("all-students"));
+		 
+		 return resource;
+
+	 }
+	 
+	 @GetMapping(path = "/students/{studentId}/subjects") 
+	 public List<Subject> getStudentsSubjects( @PathVariable Integer studentId) {
+
+		 Optional<Student> student = studentService.getStudentsSubjects( studentId );
+		 if( !student.isPresent() )
+			 throw new StudentNotFoundException("Student not found:"+studentId);
+		 
+		 return student.get().getSubjects();
+
+	 }
+	 
 }
