@@ -76,6 +76,7 @@ public class ManageStudentController {
 	 public EntityModel<Student> getStudentByID( @PathVariable Integer studentId) {
 
 		 Student student = studentService.getStudentById( studentId );
+
 		 if( student == null )
 			 throw new StudentNotFoundException("Student not found:"+studentId);
 		 
@@ -168,23 +169,25 @@ public class ManageStudentController {
 
 	 }
 	 
-	 @GetMapping(path = "/students/ordered/{direction}") 
-	 public CollectionModel<Student> getByStudentNameOrdered( @PathVariable String direction) {
-
-		 List<Student> studentList = studentService.getByStudentNameOrdered(direction);
-		 if( studentList == null )
-			 throw new StudentNotFoundException("Student not found:"+direction );
-
-		 CollectionModel<Student> resource = CollectionModel.of(studentList);
-		 
-		 WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
-		 
-		 resource.add(linkTo.withRel("all-students"));
-		 
-		 return resource;
-
-	 }
-	 
+		/*
+		 * @GetMapping(path = "/students/ordered/{direction}") public
+		 * CollectionModel<Student> getByStudentNameOrdered( @PathVariable String
+		 * direction) {
+		 * 
+		 * List<Student> studentList =
+		 * studentService.getByStudentNameOrdered(direction); if( studentList == null )
+		 * throw new StudentNotFoundException("Student not found:"+direction );
+		 * 
+		 * CollectionModel<Student> resource = CollectionModel.of(studentList);
+		 * 
+		 * WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).getStudents());
+		 * 
+		 * resource.add(linkTo.withRel("all-students"));
+		 * 
+		 * return resource;
+		 * 
+		 * }
+		 */	 
 	 @GetMapping(path = "/students/{studentId}/subjects") 
 	 public List<Subject> getStudentsSubjects( @PathVariable Integer studentId) {
 

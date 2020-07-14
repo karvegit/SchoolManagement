@@ -52,11 +52,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.findByStudentIdGreaterThan( studentId );
 	}
 
-	@Override
-	public List<Student> getByStudentNameOrdered(String name) {
-		return studentRepository.findByStudentNameOrdered( name );
-	}
-
+	/*
+	 * @Override public List<Student> getByStudentNameOrdered(String name) { return
+	 * studentRepository.findByStudentNameOrdered( name ); }
+	 */
 	public Optional<Student> getStudentsSubjects(Integer studentId) {
 
 		//return studentDAO.getStudent(studentId);

@@ -1,8 +1,8 @@
-insert into student values (1,'Gavin','Bpl','ABA','2001');
-insert into student values (2,'John','Nasik','BBA','2001');
-insert into student values (3,'Adam','Pune','CBA','2001');
-insert into student values (4,'Jonny','Satara','DBA','2001');
-insert into student values (5,'Jest','PCMC','EBA','2001');
+insert into STUDENTDETAILS(student_id, course , name , place , year , registration_date , registration_time , session_start_date_time ) values (1,'Gavin','Bpl','ABA','2001',parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'));
+insert into STUDENTDETAILS(student_id, course , name , place , year , registration_date , registration_time , session_start_date_time ) values (2,'John','Nasik','BBA','2001',parsedatetime('20-10-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('20-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'));
+insert into STUDENTDETAILS(student_id, course , name , place , year , registration_date , registration_time , session_start_date_time ) values (3,'Adam','Pune','CBA','2001',parsedatetime('17-11-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'));
+insert into STUDENTDETAILS(student_id, course , name , place , year , registration_date , registration_time , session_start_date_time ) values (4,'Jonny','Satara','DBA','2001',parsedatetime('17-12-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 19:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'));
+insert into STUDENTDETAILS(student_id, course , name , place , year , registration_date , registration_time , session_start_date_time ) values (5,'Jest','PCMC','EBA','2001',parsedatetime('25-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 18:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'),parsedatetime('17-09-2012 19:47:52.690', 'dd-MM-yyyy hh:mm:ss.SS'));
 insert into subject values (101,'Maths','Maths Description',1);
 insert into subject values (102,'Chemistry','Chemistry Description',1);
 insert into subject values (103,'Maths','Maths Description',4);

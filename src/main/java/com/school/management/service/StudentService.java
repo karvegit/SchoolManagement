@@ -25,6 +25,6 @@ public interface StudentService {
 
 	public List<Student> getStudentByIdGreaterThan( Integer studentId);
 	
-	public List<Student> getByStudentNameOrdered( String name );
+	//public List<Student> getByStudentNameOrdered( String name );
 
 }

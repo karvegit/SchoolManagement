@@ -45,5 +45,14 @@ public class Subject {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", description=" + description
 				+ "]";
 	}
+	public Subject(Integer subjectId, String subjectName, String description) {
+		super();
+		this.subjectId = subjectId;
+		this.subjectName = subjectName;
+		this.description = description;
+	}
+	public Subject() {
+		super();
+	}
 
 }
