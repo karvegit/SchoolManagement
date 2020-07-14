@@ -30,7 +30,7 @@ public class StudentRepositoryIntegrationTest {
 	private StudentRepository repository;
 
 	@Test
-	public void whenFindByRegistrationDate_thenStudents1And2Returned() throws ParseException {
+	public void whenFindByRegistrationDate_thenStudent1Returned() throws ParseException {
 		List<Subject> subjectList = new ArrayList<>();
 		Subject subject1 = new Subject(101, "Maths", "Maths Subject");
 		Subject subject2 = new Subject(102, "Maths", "Maths Subject");
