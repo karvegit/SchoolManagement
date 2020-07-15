@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Subject {
 
@@ -40,6 +40,16 @@ public class Subject {
 		this.description = description;
 	}
 
+	public Subject() {
+		super();
+	}
+
+	/*
+	 * public Student getStudent() { return student; }
+	 */
+	public void setStudent(Student student) {
+		this.student = student;
+	}
 	@Override
 	public String toString() {
 		return "Subject [subjectId=" + subjectId + ", subjectName=" + subjectName + ", description=" + description
@@ -51,8 +61,4 @@ public class Subject {
 		this.subjectName = subjectName;
 		this.description = description;
 	}
-	public Subject() {
-		super();
-	}
-
 }

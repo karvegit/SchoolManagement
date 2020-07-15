@@ -26,6 +26,6 @@ public interface StudentRepository extends JpaRepository<Student, Integer>{
     List<Student> findAllByRegistrationTimeBetween(Date registrationTimeStart,Date registrationTimeEnd);
  
     @Query("select s from STUDENTDETAILS s where s.sessionStartDateTime <= :sessionStartDateTime")
-    List<Student> findAllWithCreationDateTimeBefore(@Param("sessionStartDateTime") Date sessionStartDateTime);	
+    List<Student> findAllWithRegistrationDateTimeBefore(@Param("sessionStartDateTime") Date sessionStartDateTime);	
 
 }

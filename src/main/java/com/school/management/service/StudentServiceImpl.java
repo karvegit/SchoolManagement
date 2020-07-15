@@ -29,17 +29,17 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.save(student);
 	}
 
-	public Student getStudentById(Integer studentId) {
+	public Optional<Student> getStudentById(Integer studentId) {
 
 		//return studentDAO.getStudent(studentId);
-		return studentRepository.getOne(studentId);
+		return studentRepository.findById(studentId);
 	}
 
 	public List<Student> deleteStudentById(Integer studentId) {
 
-		studentDAO.deleteStudentById(studentId);
+		//studentDAO.deleteStudentById(studentId);
 		studentRepository.deleteById(studentId);
-		return studentDAO.getAllStudents();		
+		return studentRepository.findAll();
 
 	}
 

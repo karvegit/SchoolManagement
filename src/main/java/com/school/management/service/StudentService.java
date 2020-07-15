@@ -4,6 +4,7 @@
 package com.school.management.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.school.management.bean.Student;
 
@@ -17,7 +18,7 @@ public interface StudentService {
 	
 	public Student saveStudent( Student student);
 	
-	public Student getStudentById( Integer studentId );
+	public Optional<Student> getStudentById( Integer studentId );
 
 	public List<Student> deleteStudentById( Integer studentId );
 	

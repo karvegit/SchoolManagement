@@ -31,6 +31,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.school.management.Exception.StudentNotFoundException;
 import com.school.management.bean.Student;
 import com.school.management.bean.Subject;
+import com.school.management.repository.SubjectRepository;
 import com.school.management.service.StudentServiceImpl;
 
 @RestController
@@ -38,6 +39,9 @@ public class ManageStudentController {
 	
 	@Autowired
 	private StudentServiceImpl studentService;
+	
+	@Autowired
+	private SubjectRepository subjectRepository;
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -75,7 +79,7 @@ public class ManageStudentController {
 	 @GetMapping(path = "/students/{studentId}") 
 	 public EntityModel<Student> getStudentByID( @PathVariable Integer studentId) {
 
-		 Student student = studentService.getStudentById( studentId );
+		 Student student = studentService.getStudentById( studentId ).get();
 
 		 if( student == null )
 			 throw new StudentNotFoundException("Student not found:"+studentId);
@@ -194,9 +198,39 @@ public class ManageStudentController {
 		 Optional<Student> student = studentService.getStudentsSubjects( studentId );
 		 if( !student.isPresent() )
 			 throw new StudentNotFoundException("Student not found:"+studentId);
-		 
+
 		 return student.get().getSubjects();
 
 	 }
+
+	 @PostMapping(path = "/students/{studentId}/subjects")
+	 public ResponseEntity<Student> createSubject(@PathVariable Integer studentId, @Valid @RequestBody Subject subject ) {
+
+		 
+		 Optional<Student> student = studentService.getStudentById( studentId );
+
+		 if( !student.isPresent() )
+			 throw new StudentNotFoundException("Student not found:"+studentId);
+
+		 subject.setStudent(student.get());
+		 
+		 subjectRepository.save(subject);
+		 
+		 
+		 URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{studentId}").buildAndExpand(subject.getSubjectId()).toUri();
+		 
+		 return ResponseEntity.created(location).build();
+		 
+		 //return ResponseEntity.created(location).body(newStudent);
+		 
+		 //HttpHeaders headers = new HttpHeaders();
+		 
+		 //headers.setLocation(location);
+		 //headers.add("custom-header", "Test");
+
+		 //return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(newStudent);
+
+	 }
+	 
 	 
 }
